@@ -1,0 +1,14 @@
+#
+# Editor
+#
+/.vs
+/.vscode
+/.idea
+
+#
+# Themes
+#
+
+/resources
+/public
+/themes/beautifulhugo

@@ -1,0 +1,32 @@
+name: Deploy site
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build-deploy:
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@v1
+        with:
+          submodules: true
+
+      - name: Setup Hugo
+        uses: peaceiris/actions-hugo@v2
+        with:
+          hugo-version: "latest"
+          extended: true
+
+      - name: Build site
+        run: hugo --minify
+
+      - name: Deploy
+        if: success()
+        uses: crazy-max/ghaction-github-pages@v1
+        with:
+          target_branch: gh-pages
+          build_dir: ./public
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
